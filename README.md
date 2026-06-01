@@ -1,8 +1,8 @@
 # 🍔 Sistema Distribuído de Delivery - API RESTful
 
-[cite_start]Este repositório contém a implementação do **Trabalho 3 - Application Interface Programming (API)** [cite: 9][cite_start], desenvolvido para a disciplina de Sistemas Distribuídos [cite: 5] [cite_start]da Universidade Federal do Ceará - Campus de Quixadá [cite: 4][cite_start], sob a orientação do Professor Rafael Braga.
+Este repositório contém a implementação do **Trabalho 3 - Application Interface Programming (API)**, desenvolvido para a disciplina de Sistemas Distribuídos da Universidade Federal do Ceará - Campus de Quixadá, sob a orientação do Professor Rafael Braga.
 
-[cite_start]O objetivo deste projeto é reimplementar um serviço remoto baseado num protocolo de requisição/resposta, focando estritamente na comunicação via API (sem a utilização de Sockets ou RMI)[cite: 11, 12]. [cite_start]O sistema simula um serviço de Delivery de comida, integrando três linguagens de programação diferentes[cite: 15].
+O objetivo deste projeto é reimplementar um serviço remoto baseado num protocolo de requisição/resposta, focando estritamente na comunicação via API (sem a utilização de Sockets ou RMI)O sistema simula um serviço de Delivery de comida, integrando três linguagens de programação diferentes.
 
 ---
 
@@ -63,10 +63,11 @@ Para testar a interoperabilidade do sistema distribuído, você precisará execu
 
 ## 📹 Apresentação e Demonstração
 
-[cite_start]Como parte dos critérios de avaliação, a dupla gravou uma demonstração mostrando o código-fonte de todos os componentes e o sistema em funcionamento real com a interação entre ambos os estudantes[cite: 14, 17].
+Como parte dos critérios de avaliação, a dupla gravou uma demonstração mostrando o código-fonte de todos os componentes e o sistema em funcionamento real com a interação entre ambos os estudantes.
 
 * **Link do Vídeo:** [Insira o link do YouTube/Drive aqui]
-* [cite_start]**Relatório:** [Insira o link ou aviso de que o relatório em PDF está anexo no repositório] [cite: 17]
+
+* **Relatório:** [Insira o link ou aviso de que o relatório em PDF está anexo no repositório].
 
 ---
 
