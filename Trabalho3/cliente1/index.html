@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Delivery - Fazer Pedido</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+        .card { border: 1px solid #ccc; padding: 20px; margin-bottom: 10px; border-radius: 5px; }
+        input { display: flex; margin-bottom: 10px; width: 95%; padding: 8px; }
+        button { padding: 10px 15px; background-color: #28a745; color: white; border: none; cursor: pointer; border-radius:8px; }
+    </style>
+</head>
+<body>
+
+    <h2>🍔 Fazer um Pedido</h2>
+    <div class="card">
+        <label>Nome do Cliente:</label>
+        <input type="text" id="nomeCliente" placeholder="Ex: Maria">
+        
+        <label>O que vai pedir?</label>
+        <input type="text" id="itemPedido" placeholder="Ex: Pizza de Calabresa">
+        
+        <label>Preço (R$):</label>
+        <input type="number" id="precoPedido" placeholder="Ex: 45.50">
+        
+        <button onclick="enviarPedido()">Confirmar Pedido</button>
+    </div>
+
+    <h3>📜 Meus Pedidos Recentes</h3>
+    <button onclick="carregarPedidos()" style="background-color: #007bff; margin-bottom: 10px;">Atualizar Lista</button>
+    <div id="listaPedidos"></div>
+
+    <script>
+        const API_URL = "http://localhost:8000/pedidos";
+
+        // Função para criar um pedido (POST)
+        async function enviarPedido() {
+            const cliente = document.getElementById("nomeCliente").value;
+            const item = document.getElementById("itemPedido").value;
+            const preco = parseFloat(document.getElementById("precoPedido").value);
+
+            // Montando o JSON exatamente como o FastAPI espera
+            const dadosPedido = {
+                cliente: cliente,
+                item: item,
+                preco: preco
+            };
+
+            // Enviando via protocolo HTTP (Fetch API)
+            const resposta = await fetch(API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(dadosPedido)
+            });
+
+            if (resposta.ok) {
+                alert("Pedido realizado com sucesso!");
+                carregarPedidos(); // Atualiza a lista na tela
+            } else {
+                alert("Erro ao fazer o pedido.");
+            }
+        }
+
+        // Função para buscar os pedidos (GET)
+        async function carregarPedidos() {
+            const resposta = await fetch(API_URL);
+            const pedidos = await resposta.json();
+            
+            const divLista = document.getElementById("listaPedidos");
+            divLista.innerHTML = ""; // Limpa a lista antes de desenhar
+
+            // Desenha cada pedido recebido do servidor
+            pedidos.forEach(pedido => {
+                divLista.innerHTML += `
+                    <div class="card">
+                        <strong>#${pedido.id} - ${pedido.item}</strong><br>
+                        Cliente: ${pedido.cliente} | R$ ${pedido.preco}<br>
+                        Status: <span style="color: orange;">${pedido.status}</span>
+                    </div>
+                `;
+            });
+        }
+
+        // Carrega a lista automaticamente ao abrir a página
+        carregarPedidos();
+    </script>
+</body>
+</html>
