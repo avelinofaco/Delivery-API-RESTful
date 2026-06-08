@@ -1,4 +1,4 @@
-content = """# 🍔 Sistema Distribuído de Delivery - Comunicação Indireta (Message Queues)
+# 🍔 Sistema Distribuído de Delivery - Comunicação Indireta (Message Queues)
 
 Este repositório contém a implementação do **Trabalho 4 - Comunicação Indireta**, desenvolvido para a disciplina de Sistemas Distribuídos da Universidade Federal do Ceará - Campus de Quixadá, sob a orientação do Professor Rafael Braga.
 
@@ -35,20 +35,25 @@ Para testar o fluxo assíncrono e a interoperabilidade do sistema, siga a ordem 
 * Java 11+ (JDK) instalado.
 
 ### Passo 1: Iniciando o Message Broker (RabbitMQ)
-Abra um terminal e certifique-se de que o Docker está rodando.
-Inicie o servidor do RabbitMQ através do comando:
+* Abra um terminal e certifique-se de que o Docker está rodando.
+* Inicie o servidor do RabbitMQ através do comando:
+
 docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
 
 ### Passo 2: Iniciando o Produtor (API Python)
-Abra um segundo terminal na pasta raiz do projeto.
-Instale as dependências:
+* Abra um segundo terminal na pasta raiz do projeto.
+* Instale as dependências:
+
 pip install fastapi uvicorn pydantic pika
-Inicie o servidor FastAPI:
+
+*Inicie o servidor FastAPI:
+
 uvicorn main:app --reload
 
 ### Passo 3: Iniciando o Consumidor da Cozinha (Java)
-Abra um terceiro terminal na pasta cozinha_java (onde está localizado o arquivo .java e as bibliotecas .jar).
-Compile o código:
+*Abra um terceiro terminal na pasta cozinha_java (onde está localizado o arquivo .java e as bibliotecas .jar).
+
+*Compile o código:
 
 Windows: ```cmd
 javac -cp "amqp-client-5.21.0.jar;slf4j-api-2.0.13.jar" KitchenConsumer.java
@@ -66,6 +71,7 @@ java -cp ".:amqp-client-5.21.0.jar:slf4j-api-2.0.13.jar" KitchenConsumer
 
 ### Passo 4: Iniciando o Cliente do Usuário (Navegador)
 Dê um duplo clique no arquivo index.html (o cliente 1) para abri-lo no seu navegador.
+
 Preencha os campos e confirme o pedido. Observe que ele será processado instantaneamente pela cozinha no terminal Java!
 
 👥 Autores
