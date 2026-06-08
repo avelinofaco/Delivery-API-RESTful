@@ -1,3 +1,4 @@
+from rabbitmq_producer import publicar_pedido
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List, Dict
@@ -28,14 +29,27 @@ contador_id = 1
 @app.post("/pedidos", response_model=Pedido, status_code=201)
 def criar_pedido(pedido: PedidoBase):
     global contador_id
+
     novo_pedido = Pedido(
         id=contador_id,
         item=pedido.item,
         cliente=pedido.cliente,
         preco=pedido.preco
     )
+
     banco_de_dados[contador_id] = novo_pedido
+
+    # ENVIO PARA FILA (COMUNICAÇÃO INDIRETA)
+    publicar_pedido({
+        "id": novo_pedido.id,
+        "item": novo_pedido.item,
+        "cliente": novo_pedido.cliente,
+        "preco": novo_pedido.preco,
+        "status": novo_pedido.status
+    })
+
     contador_id += 1
+
     return novo_pedido
 
 @app.get("/pedidos", response_model=List[Pedido])
@@ -57,6 +71,14 @@ def atualizar_status(pedido_id: int, atualizacao: AtualizacaoStatus):
     
     pedido = banco_de_dados[pedido_id]
     pedido.status = atualizacao.status
+    # ENVIO PARA FILA (COMUNICAÇÃO INDIRETA)
+    publicar_pedido({
+        "id": pedido.id,
+        "item": pedido.item,
+        "cliente": pedido.cliente,
+        "preco": pedido.preco,
+        "status": pedido.status
+    })
     return {"mensagem": "Status atualizado com sucesso!", "pedido": pedido}
 
 # Liberando o CORS para o nosso cliente JavaScript conseguir se comunicar
